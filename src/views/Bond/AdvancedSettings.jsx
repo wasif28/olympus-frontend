@@ -1,7 +1,6 @@
 import {
   Typography,
   Box,
-  Modal,
   Paper,
   SvgIcon,
   IconButton,
@@ -11,7 +10,8 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
-import { t, Trans } from "@lingui/macro";
+import { Modal } from "@olympusdao/component-library";
+import { Trans } from "@lingui/macro";
 import "./bondSettings.scss";
 
 function AdvancedSettings({
