@@ -43,7 +43,6 @@ import ChangeNetwork from "./views/ChangeNetwork/ChangeNetwork";
 import { dark as darkTheme } from "./themes/dark.js";
 import { light as lightTheme } from "./themes/light.js";
 import { girth as gTheme } from "./themes/girth.js";
-import { v4 as uuidv4 } from "uuid";
 import "./style.scss";
 import { useGoogleAnalytics } from "./hooks/useGoogleAnalytics";
 import { useAppSelector } from "./hooks";
@@ -112,7 +111,7 @@ function App() {
 
   const { address, connect, hasCachedProvider, provider, connected, networkId, providerInitialized } = useWeb3Context();
 
-  const [migrationModalOpen, setMigrationModalOpen] = useState(true);
+  const [migrationModalOpen, setMigrationModalOpen] = useState(false);
   const migModalOpen = () => {
     setMigrationModalOpen(true);
   };
