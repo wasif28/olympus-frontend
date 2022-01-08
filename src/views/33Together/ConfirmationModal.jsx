@@ -1,4 +1,5 @@
-import { Modal, Backdrop, Paper, SvgIcon, Box, Typography, Button, Fade, useTheme } from "@material-ui/core";
+import { Backdrop, Paper, SvgIcon, Box, Typography, Button, Fade, useTheme } from "@material-ui/core";
+import { Modal } from "@olympusdao/component-library";
 import { ReactComponent as sOhmTokenImg } from "../../assets/tokens/token_sOHM.svg";
 import { ReactComponent as t33TokenImg } from "../../assets/tokens/token_33T.svg";
 import ArrowForwardOutlinedIcon from "@material-ui/icons/ArrowForwardOutlined";

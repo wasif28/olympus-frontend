@@ -1,4 +1,5 @@
-import { Box, Modal, Paper, Typography, SvgIcon, Link, Button, Divider } from "@material-ui/core";
+import { Box, Paper, Typography, SvgIcon, Link, Button, Divider } from "@material-ui/core";
+import { Modal } from "@olympusdao/component-library";
 import { FormControl, FormHelperText, InputAdornment } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import { OutlinedInput } from "@material-ui/core";
@@ -32,13 +33,11 @@ import { Project } from "src/components/GiveProject/project.type";
 const sOhmImg = getTokenImage("sohm");
 import { shorten } from "src/helpers";
 import { InfoTooltip } from "@olympusdao/component-library";
-import { useAppSelector } from "src/hooks";
 import { t, Trans } from "@lingui/macro";
 import { useLocation } from "react-router-dom";
 import { EnvHelper } from "src/helpers/Environment";
 import { CancelCallback, SubmitCallback } from "./Interfaces";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import ConnectButton from "../../components/ConnectButton";
 import { NetworkId } from "src/constants";
 
 type RecipientModalProps = {
@@ -438,7 +437,7 @@ export function RecipientModal({
 
   return (
     /* modal-container displays a background behind the ohm-card container, which means that if modal-container receives a click, we can close the modal */
-    <Modal className="modal-container" open={isModalOpen} onClose={cancelFunc} onClick={cancelFunc} hideBackdrop={true}>
+    <Modal className="modal-container" open={isModalOpen} onClose={cancelFunc} onClick={cancelFunc} hideBackdrop>
       <Paper
         className={`ohm-card ohm-modal ${isSmallScreen && "smaller"}`}
         onClick={handleModalInsideClick}

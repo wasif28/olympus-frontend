@@ -1,10 +1,7 @@
 import {
-  Backdrop,
   Box,
   Button,
-  ButtonBase,
   Fade,
-  Modal,
   SvgIcon,
   Table,
   TableCell,
@@ -14,16 +11,15 @@ import {
   Typography,
   Paper,
 } from "@material-ui/core";
+import { Modal } from "@olympusdao/component-library";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-// import ButtonUnstyled from "@mui/core/ButtonUnstyled";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
-import { BigNumber } from "ethers";
 import { changeMigrationApproval, migrateAll } from "src/slices/MigrateThunk";
 import { useWeb3Context } from "src/hooks";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { isPendingTxn, txnButtonText } from "src/slices/PendingTxnsSlice";
 import { info } from "src/slices/MessagesSlice";
 import { InfoTooltip } from "@olympusdao/component-library";
@@ -39,19 +35,6 @@ const formatCurrency = (c: number) => {
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
   }).format(c);
-};
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 2,
-  zIndex: 3,
-  maxWidth: 600,
-  minWidth: 300,
-  borderRadius: 10,
 };
 
 const useStyles = makeStyles({
@@ -169,15 +152,9 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
     <div>
       <Modal
         className="mig-modal-full"
-        aria-labelledby="migration-modal-title"
-        aria-describedby="migration-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
       >
         <Fade in={open}>
           <Box display="flex" alignItems="center" justifyContent="center" style={{ width: "100%", height: "100%" }}>

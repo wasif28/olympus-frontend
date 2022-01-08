@@ -112,7 +112,7 @@ function App() {
 
   const { address, connect, hasCachedProvider, provider, connected, networkId, providerInitialized } = useWeb3Context();
 
-  const [migrationModalOpen, setMigrationModalOpen] = useState(false);
+  const [migrationModalOpen, setMigrationModalOpen] = useState(true);
   const migModalOpen = () => {
     setMigrationModalOpen(true);
   };

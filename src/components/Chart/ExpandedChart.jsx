@@ -1,5 +1,6 @@
 import { InfoTooltip } from "@olympusdao/component-library";
-import { Backdrop, Box, Fade, Modal, Paper, SvgIcon, Typography, useMediaQuery } from "@material-ui/core";
+import { Backdrop, Box, Fade, Paper, SvgIcon, Typography } from "@material-ui/core";
+import { Modal } from "@olympusdao/component-library";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import { ResponsiveContainer } from "recharts";
 
@@ -13,8 +14,6 @@ function ExpandedChart({
   headerSubText,
   runwayExtraInfo,
 }) {
-  const verySmallScreen = useMediaQuery("(max-width: 379px)");
-
   return (
     <Modal open={open} onClose={handleClose}>
       <Backdrop open={true}>
