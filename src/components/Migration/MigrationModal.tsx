@@ -152,9 +152,14 @@ function MigrationModal({ open, handleClose }: { open: boolean; handleClose: any
     <div>
       <Modal
         className="mig-modal-full"
+        aria-labelledby="migration-modal-title"
+        aria-describedby="migration-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
         <Fade in={open}>
           <Box display="flex" alignItems="center" justifyContent="center" style={{ width: "100%", height: "100%" }}>
