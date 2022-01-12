@@ -21,7 +21,8 @@ describe("staking", () => {
 
     // Connect button should be available
     expect(await selectorExists(page, "#stake-connect-wallet")).toBeTruthy();
-
+    // connect button on top bar should say connect too
+    // stake input shouldnt be visible
     // Stake button not visible
     expect(await selectorExists(page, "#stake-button")).toBeFalsy();
   });
@@ -54,6 +55,8 @@ describe("staking", () => {
     // await metamask.confirmTransaction();
     // Approve the transaction
     // await metamask.approve();
+    // check that the button is "pending"
+    // need to test approval for stake/unstake gOhm and sOhm
 
     // Button should be replaced by "Stake"
     expect(await waitSelectorExists(page, "#stake-button")).toBeTruthy();
@@ -64,11 +67,16 @@ describe("staking", () => {
     const { page, metamask } = dapp;
 
     await connectWallet(page, metamask);
+    // check that it is defaulted to stake to sOhm
+    // check button says "stake to sohm"
+    // toggle to gOhm
+    // check that button says "stake to gOhm"
 
     // Perform staking
     await typeValue(page, "#amount-input", STAKE_AMOUNT.toString());
     await clickElement(page, "#stake-button");
     await metamask.confirmTransaction();
+    // check that the button is "pending"
 
     // Staked balance should be written as 0.1 sOHM
     expect(await getSelectorTextContent(page, "#user-staked-balance")).toEqual("0.1 sOHM");
@@ -77,9 +85,15 @@ describe("staking", () => {
   });
 
   test("unstaking", async () => {
+    // we need a test for the max stake/unstake button
+
     const { page, metamask } = dapp;
 
     await connectWallet(page, metamask);
+    // check that it is defaulted to unstake to sOhm
+    // check button says "unstake to sohm"
+    // toggle to gOhm
+    // check that button says "unstake to gOhm"
 
     // Perform staking
     await typeValue(page, "#amount-input", STAKE_AMOUNT.toString());
@@ -90,8 +104,11 @@ describe("staking", () => {
     await typeValue(page, "#amount-input", STAKE_AMOUNT.toString());
     await clickElement(page, "#unstake-button");
     await metamask.confirmTransaction();
+    // check that the button is "pending"
 
     // Staked balance should be written as 0.0 sOHM
     expect(await getSelectorTextContent(page, "#user-staked-balance")).toEqual("0 sOHM");
+    // check that ohm balance increased
+    // if there is zero
   });
 });
