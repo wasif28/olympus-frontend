@@ -9,7 +9,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import useTheme from "./hooks/useTheme";
 import useBonds, { IAllBondData } from "./hooks/Bonds";
 import { useWeb3Context } from "./hooks/web3Context";
-import useSegmentAnalytics from "./hooks/useSegmentAnalytics";
 import { shouldTriggerSafetyCheck } from "./helpers";
 
 import { calcBondDetails } from "./slices/BondSlice";
@@ -46,7 +45,6 @@ import { light as lightTheme } from "./themes/light.js";
 import { girth as gTheme } from "./themes/girth.js";
 import { v4 as uuidv4 } from "uuid";
 import "./style.scss";
-import { useGoogleAnalytics } from "./hooks/useGoogleAnalytics";
 import { useAppSelector } from "./hooks";
 import { Project } from "src/components/GiveProject/project.type";
 import ProjectInfo from "./views/Give/ProjectInfo";
@@ -103,8 +101,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function App() {
-  useSegmentAnalytics();
-  useGoogleAnalytics();
   const location = useLocation();
   const dispatch = useDispatch();
   const [theme, toggleTheme, mounted] = useTheme();

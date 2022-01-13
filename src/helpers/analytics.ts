@@ -3,6 +3,7 @@ declare global {
     analytics: {
       track: any;
       identify: any;
+      page: any;
     };
   }
 }
@@ -38,6 +39,14 @@ export const track = (eventName: string, properties?: any) => {
   if (window.analytics) {
     try {
       window.analytics.track(eventName, properties, options);
+    } catch (e) {}
+  }
+};
+
+export const page = (name?: string, options?: any) => {
+  if (window.analytics) {
+    try {
+      window.analytics.page(name, options);
     } catch (e) {}
   }
 };
