@@ -8,10 +8,7 @@ declare global {
   }
 }
 
-// Event Names
-// Please use the Object/Action Framework when naming events!
-export const OLYMPUS_GIVE = "Olympus Give";
-export const BONDS = "Bonds";
+// Event Names: Please use the Object/Action Framework when naming events!
 export const STAKING = "Staking";
 export const ZAP_APPROVAL_REQUEST_SUCCESS = "Zap Approval Request Success";
 export const ZAP_APPROVAL_REQUEST_FAILURE = "Zap Approval Request Failure";
@@ -33,6 +30,7 @@ export const options = {
   integrations: {
     "Google Analytics": true,
   },
+  context: { ip: "0.0.0.0" }, // Anonymize IP Addresses
 };
 
 export const track = (eventName: string, properties?: any) => {
