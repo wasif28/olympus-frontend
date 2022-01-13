@@ -9,7 +9,8 @@ import { ethers } from "ethers";
 import {
   track,
   ZAP_APPROVAL_REQUEST_FAILURE,
-  ZAP_APPROVAL_REQUEST_SUCCESS, ZAP_SWAP_FAILURE,
+  ZAP_APPROVAL_REQUEST_SUCCESS,
+  ZAP_SWAP_FAILURE,
   ZAP_SWAP_SUCCESS,
 } from "../helpers/analytics";
 
