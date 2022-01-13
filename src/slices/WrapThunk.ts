@@ -1,21 +1,20 @@
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import { addresses } from "../constants";
 import { abi as ierc20ABI } from "../abi/IERC20.json";
-import { abi as v2sOHM } from "../abi/v2sOhmNew.json";
 import { clearPendingTxn, fetchPendingTxns, getWrappingTypeText } from "./PendingTxnsSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./AccountSlice";
-import { error, info } from "../slices/MessagesSlice";
+import { error, info } from "./MessagesSlice";
 import { IActionValueAsyncThunk, IChangeApprovalAsyncThunk, IJsonRPCError } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { IERC20, OlympusStakingv2__factory } from "src/typechain";
+import { track, UNWRAP, WRAP } from "../helpers/analytics";
 
 interface IUAData {
   address: string;
   value: string;
   approved: boolean;
   txHash: string | null;
-  type: string | null;
+  type: string;
 }
 
 export const changeApproval = createAsyncThunk(
@@ -96,18 +95,18 @@ export const changeWrapV2 = createAsyncThunk(
       value: value,
       approved: true,
       txHash: null,
-      type: null,
+      type: "",
     };
 
     try {
       if (action === "wrap") {
         const formattedValue = ethers.utils.parseUnits(value, "gwei");
-        uaData.type = "wrap";
+        uaData.type = WRAP;
         wrapTx = await stakingContract.wrap(address, formattedValue);
         dispatch(fetchPendingTxns({ txnHash: wrapTx.hash, text: getWrappingTypeText(action), type: "wrapping" }));
       } else if (action === "unwrap") {
         const formattedValue = ethers.utils.parseUnits(value, "ether");
-        uaData.type = "unwrap";
+        uaData.type = UNWRAP;
         wrapTx = await stakingContract.unwrap(address, formattedValue);
         dispatch(fetchPendingTxns({ txnHash: wrapTx.hash, text: getWrappingTypeText(action), type: "wrapping" }));
       }
@@ -126,8 +125,7 @@ export const changeWrapV2 = createAsyncThunk(
       if (wrapTx) {
         uaData.txHash = wrapTx.hash;
         await wrapTx.wait();
-        segmentUA(uaData);
-        console.log("getBalances");
+        track(uaData.type, uaData);
         dispatch(getBalances({ address, networkID, provider }));
         dispatch(clearPendingTxn(wrapTx.hash));
       }

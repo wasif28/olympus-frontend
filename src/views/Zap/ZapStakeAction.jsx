@@ -36,9 +36,9 @@ import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import { ReactComponent as ZapperIcon } from "../../assets/icons/powered-by-zapper.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/icons/settings.svg";
 import { ethers } from "ethers";
-import { segmentUA } from "../../helpers/userAnalyticHelpers";
 import { trim } from "src/helpers";
 import { Trans } from "@lingui/macro";
+import { OLYZAPS_OFFER_DISPLAY, OLYZAPS_TOKEN_SELECTED, track } from "../../helpers/analytics";
 
 const DISABLE_ZAPS = true;
 
@@ -67,12 +67,10 @@ function ZapStakeAction(props) {
   const isAppLoading = useAppSelector(state => state.app.loading);
   const [zapToken, setZapToken] = useState(null);
   const handleSelectZapToken = token => {
-    const uaData = {
-      type: "OlyZaps Token Select",
+    track(OLYZAPS_TOKEN_SELECTED, {
       token: token,
       address: address,
-    };
-    segmentUA(uaData);
+    });
     setZapToken(token);
     handleClose();
   };
@@ -96,15 +94,6 @@ function ZapStakeAction(props) {
   const [inputQuantity, setInputQuantity] = useState("");
   const [outputQuantity, setOutputQuantity] = useState("");
 
-  const olyZapsSwapOfferDisplay = (amount, outPutQuantity) => {
-    const uaData = {
-      type: "OlyZaps Offer Display",
-      token: zapToken,
-      minOutput: outputQuantity,
-    };
-    segmentUA(uaData);
-  };
-
   const ohmMarketPrice = useAppSelector(state => {
     return state.app.marketPrice;
   });
@@ -123,7 +112,10 @@ function ZapStakeAction(props) {
     setInputQuantity(amount);
     setOutputQuantity(amount / exchangeRate);
     if (outputQuantity) {
-      olyZapsSwapOfferDisplay(amount, outputQuantity);
+      track(OLYZAPS_OFFER_DISPLAY, {
+        token: zapToken,
+        minOutput: outputQuantity,
+      });
     }
   };
 

@@ -7,22 +7,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./AccountSlice";
 import { error, info } from "../slices/MessagesSlice";
 import {
-  IActionValueAsyncThunk,
-  IChangeApprovalAsyncThunk,
   IChangeApprovalWithVersionAsyncThunk,
   IJsonRPCError,
   IStakeAsyncThunk,
 } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { IERC20, OlympusStakingv2__factory, OlympusStaking__factory, StakingHelper } from "src/typechain";
-import ReactGA from "react-ga";
+import { STAKE, track, UNSTAKE } from "../helpers/analytics";
 
 interface IUAData {
   address: string;
   value: string;
   approved: boolean;
   txHash: string | null;
-  type: string | null;
+  type: string;
 }
 
 function alreadyApprovedToken(
@@ -173,20 +170,20 @@ export const changeStake = createAsyncThunk(
       value: value,
       approved: true,
       txHash: null,
-      type: null,
+      type: "",
     };
     try {
       if (version2) {
         let rebasing = true; // when true stake into sOHM
         if (action === "stake") {
-          uaData.type = "stake";
+          uaData.type = STAKE;
           // 3rd arg is rebase
           // 4th argument is claim default to true
           stakeTx = rebase
             ? await stakingV2.stake(address, ethers.utils.parseUnits(value, "gwei"), true, true)
             : await stakingV2.stake(address, ethers.utils.parseUnits(value, "gwei"), false, true);
         } else {
-          uaData.type = "unstake";
+          uaData.type = UNSTAKE;
           // 3rd arg is trigger default to true for mainnet and false for rinkeby
           // 4th arg is rebasing
           stakeTx = rebase
@@ -195,10 +192,10 @@ export const changeStake = createAsyncThunk(
         }
       } else {
         if (action === "stake") {
-          uaData.type = "stake";
+          uaData.type = STAKE;
           stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"));
         } else {
-          uaData.type = "unstake";
+          uaData.type = UNSTAKE;
           stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true);
         }
       }
@@ -219,15 +216,7 @@ export const changeStake = createAsyncThunk(
       return;
     } finally {
       if (stakeTx) {
-        segmentUA(uaData);
-        ReactGA.event({
-          category: "Staking",
-          action: uaData.type ?? "unknown",
-          label: uaData.txHash ?? "unknown",
-          dimension1: uaData.txHash ?? "unknown",
-          dimension2: uaData.address,
-          metric1: parseFloat(uaData.value),
-        });
+        track(uaData.type, uaData);
         dispatch(clearPendingTxn(stakeTx.hash));
       }
     }

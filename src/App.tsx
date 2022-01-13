@@ -10,7 +10,6 @@ import useTheme from "./hooks/useTheme";
 import useBonds, { IAllBondData } from "./hooks/Bonds";
 import { useWeb3Context } from "./hooks/web3Context";
 import useSegmentAnalytics from "./hooks/useSegmentAnalytics";
-import { segmentUA } from "./helpers/userAnalyticHelpers";
 import { shouldTriggerSafetyCheck } from "./helpers";
 
 import { calcBondDetails } from "./slices/BondSlice";
@@ -55,6 +54,7 @@ import projectData from "src/views/Give/projects.json";
 import Announcement from "./components/Announcement/Announcement";
 import { getAllBonds, getUserNotes } from "./slices/BondSliceV2";
 import { NetworkId } from "./constants";
+import { CONNECT, track } from "./helpers/analytics";
 
 // 😬 Sorry for all the console logging
 const DEBUG = false;
@@ -238,8 +238,7 @@ function App() {
       // then user DOES have a wallet
       connect().then(() => {
         setWalletChecked(true);
-        segmentUA({
-          type: "connect",
+        track(CONNECT, {
           provider: provider,
           context: currentPath,
         });

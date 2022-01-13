@@ -14,11 +14,8 @@ import {
   IJsonRPCError,
   IBaseAddressAsyncThunk,
 } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { t } from "@lingui/macro";
-import { useLocation } from "react-router-dom";
-import { EnvHelper } from "src/helpers/Environment";
-import ReactGA from "react-ga";
+import { track } from "../helpers/analytics";
 
 interface IUAData {
   address: string;
@@ -26,7 +23,7 @@ interface IUAData {
   recipient: string;
   approved: boolean;
   txHash: string | null;
-  type: string | null;
+  type: string;
 }
 
 export const PENDING_TXN_GIVE = "giving";
@@ -164,7 +161,7 @@ export const changeGive = createAsyncThunk(
       recipient: recipient,
       approved: true,
       txHash: null,
-      type: null,
+      type: "",
     };
 
     try {
@@ -203,17 +200,7 @@ export const changeGive = createAsyncThunk(
       return;
     } finally {
       if (giveTx) {
-        segmentUA(uaData);
-
-        ReactGA.event({
-          category: "Olympus Give",
-          action: uaData.type ?? "unknown",
-          label: uaData.txHash ?? "unknown",
-          dimension1: uaData.txHash ?? "unknown",
-          dimension2: uaData.address,
-          metric1: parseFloat(uaData.value),
-        });
-
+        track(uaData.type, uaData);
         dispatch(clearPendingTxn(giveTx.hash));
       }
     }
@@ -240,7 +227,7 @@ export const changeMockGive = createAsyncThunk(
       recipient: recipient,
       approved: true,
       txHash: null,
-      type: null,
+      type: "",
     };
 
     try {
@@ -279,7 +266,7 @@ export const changeMockGive = createAsyncThunk(
       return;
     } finally {
       if (giveTx) {
-        segmentUA(uaData);
+        track(uaData.type, uaData);
 
         dispatch(clearPendingTxn(giveTx.hash));
       }

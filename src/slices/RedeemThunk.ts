@@ -7,15 +7,15 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances, getRedemptionBalances, getMockRedemptionBalances } from "./AccountSlice";
 import { error } from "../slices/MessagesSlice";
 import { IBaseAddressAsyncThunk, IJsonRPCError } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
 import { t } from "@lingui/macro";
+import { REDEEM, track } from "../helpers/analytics";
 
 interface IUAData {
   address: string;
   value: string;
   approved: boolean;
   txHash: string | null;
-  type: string | null;
+  type: string;
 }
 
 export const redeemBalance = createAsyncThunk(
@@ -36,11 +36,11 @@ export const redeemBalance = createAsyncThunk(
       value: redeemableBalance,
       approved: true,
       txHash: null,
-      type: null,
+      type: "",
     };
 
     try {
-      uaData.type = "redeem";
+      uaData.type = REDEEM;
       redeemTx = await giving.redeem();
       const pendingTxnType = "redeeming";
       uaData.txHash = redeemTx.hash;
@@ -57,8 +57,7 @@ export const redeemBalance = createAsyncThunk(
       return;
     } finally {
       if (redeemTx) {
-        segmentUA(uaData);
-
+        track(uaData.type, uaData);
         dispatch(clearPendingTxn(redeemTx.hash));
       }
     }
@@ -90,11 +89,11 @@ export const redeemMockBalance = createAsyncThunk(
       value: redeemableBalance,
       approved: true,
       txHash: null,
-      type: null,
+      type: "",
     };
 
     try {
-      uaData.type = "redeem";
+      uaData.type = REDEEM;
       redeemTx = await giving.redeem();
       const pendingTxnType = "redeeming";
       uaData.txHash = redeemTx.hash;
@@ -111,7 +110,7 @@ export const redeemMockBalance = createAsyncThunk(
       return;
     } finally {
       if (redeemTx) {
-        segmentUA(uaData);
+        track(uaData.type, uaData);
 
         dispatch(clearPendingTxn(redeemTx.hash));
       }

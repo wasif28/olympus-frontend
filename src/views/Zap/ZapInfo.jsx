@@ -4,9 +4,8 @@ import { ReactComponent as CircleZapIcon } from "../../assets/icons/circle-zap.s
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
 import MultiLogo from "../../components/MultiLogo";
 import { makeStyles } from "@material-ui/core/styles";
-import { segmentUA } from "../../helpers/userAnalyticHelpers";
-import { useState } from "react";
 import { Trans } from "@lingui/macro";
+import { LEARN_ABOUT_OLYZAPS, track } from "../../helpers/analytics";
 
 const useStyles = makeStyles(theme => ({
   infoBox: {
@@ -49,11 +48,9 @@ const useStyles = makeStyles(theme => ({
 
 function ZapInfo({ tokens, address }) {
   const trackClick = address => {
-    let uaData = {
-      address: address,
-      type: "Learn more OlyZaps",
-    };
-    segmentUA(uaData);
+    track(LEARN_ABOUT_OLYZAPS, {
+      address,
+    });
   };
   const classes = useStyles();
   return (

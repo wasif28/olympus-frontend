@@ -15,8 +15,7 @@ import {
   IRedeemAllBondsAsyncThunk,
   IRedeemBondAsyncThunk,
 } from "./interfaces";
-import { segmentUA } from "../helpers/userAnalyticHelpers";
-import ReactGA from "react-ga";
+import { track } from "../helpers/analytics";
 
 export const changeApproval = createAsyncThunk(
   "bonding/changeApproval",
@@ -243,15 +242,7 @@ export const bondAsset = createAsyncThunk(
       } else dispatch(error(rpcError.message));
     } finally {
       if (bondTx) {
-        segmentUA(uaData);
-        ReactGA.event({
-          category: "Bonds",
-          action: uaData.type ?? "unknown",
-          label: uaData.bondName,
-          dimension1: uaData.txHash ?? "unknown",
-          dimension2: uaData.address,
-          metric1: parseFloat(uaData.value),
-        });
+        track(uaData.type, uaData);
         dispatch(clearPendingTxn(bondTx.hash));
       }
     }
@@ -295,15 +286,7 @@ export const redeemBond = createAsyncThunk(
       dispatch(error((e as IJsonRPCError).message));
     } finally {
       if (redeemTx) {
-        segmentUA(uaData);
-        ReactGA.event({
-          category: "Bonds",
-          action: uaData.type ?? "unknown",
-          label: uaData.bondName,
-          dimension1: uaData.txHash ?? "unknown",
-          dimension2: uaData.address,
-          dimension3: uaData.autoStake.toString(),
-        });
+        track(uaData.type, uaData);
         dispatch(clearPendingTxn(redeemTx.hash));
       }
     }

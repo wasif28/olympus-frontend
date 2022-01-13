@@ -16,7 +16,6 @@ import { useAppSelector } from "src/hooks";
 import { useWeb3Context } from "src/hooks/web3Context";
 import { addresses, NETWORKS } from "src/constants";
 import { formatCurrency } from "src/helpers";
-import { RootState } from "src/store";
 import { NetworkId } from "src/constants";
 
 import { ReactComponent as MoreIcon } from "src/assets/icons/more.svg";
@@ -26,11 +25,11 @@ import WsOhmImg from "src/assets/tokens/token_wsOHM.svg";
 import Token33tImg from "src/assets/tokens/token_33T.svg";
 import GOhmImg from "src/assets/tokens/gohm.png";
 
-import { segmentUA } from "src/helpers/userAnalyticHelpers";
 import { t } from "@lingui/macro";
 
 import { useQuery } from "react-query";
 import { fetchCrossChainBalances } from "src/lib/fetchBalances";
+import { ADD_TOKEN, track } from "../../../helpers/analytics";
 
 const Accordion = withStyles({
   root: {
@@ -95,9 +94,8 @@ const addTokenToWallet = async (token: IToken, userAddress: string) => {
         },
       },
     });
-    segmentUA({
+    track(ADD_TOKEN, {
       address: userAddress,
-      type: "Add Token",
       tokenName: token.symbol,
     });
   } catch (error) {
