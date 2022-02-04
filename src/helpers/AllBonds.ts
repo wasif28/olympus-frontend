@@ -30,7 +30,7 @@ export const dai = new StableBond({
   bondContractABI: DaiBondContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
-    [NetworkId.TESTNET_RINKEBY]: false,
+    [NetworkId.TESTNET_RINKEBY]: true,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -38,7 +38,7 @@ export const dai = new StableBond({
   },
   isLOLable: {
     [NetworkId.MAINNET]: false,
-    [NetworkId.TESTNET_RINKEBY]: false,
+    [NetworkId.TESTNET_RINKEBY]: true,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -46,7 +46,7 @@ export const dai = new StableBond({
   },
   LOLmessage: "Sold Out",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
+    [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: true,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
@@ -59,8 +59,8 @@ export const dai = new StableBond({
       reserveAddress: "0x6b175474e89094c44da98b954eedeac495271d0f",
     },
     [NetworkId.TESTNET_RINKEBY]: {
-      bondAddress: "0xDea5668E815dAF058e3ecB30F645b04ad26374Cf",
-      reserveAddress: "0xB2180448f8945C8Cc8AE9809E67D6bd27d8B2f2C",
+      bondAddress: "0x0aE2d1e3b01008C0fa48C4A164919e2C33181859",
+      reserveAddress: "0xe8cb144a5974a44822c54D861F9e66a423eD600e",
     },
     [NetworkId.Localhost]: {
       bondAddress: "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
@@ -95,8 +95,8 @@ export const fraxOld = new StableBond({
   },
   LOLmessage: "Gone Fishin'",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -124,7 +124,7 @@ export const frax = new StableBond({
   bondContractABI: FraxBondContract,
   isBondable: {
     [NetworkId.MAINNET]: false,
-    [NetworkId.TESTNET_RINKEBY]: false,
+    [NetworkId.TESTNET_RINKEBY]: true,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -132,7 +132,7 @@ export const frax = new StableBond({
   },
   isLOLable: {
     [NetworkId.MAINNET]: false,
-    [NetworkId.TESTNET_RINKEBY]: false,
+    [NetworkId.TESTNET_RINKEBY]: true,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -141,7 +141,7 @@ export const frax = new StableBond({
   LOLmessage: "",
   isClaimable: {
     [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: false,
+    [NetworkId.TESTNET_RINKEBY]: true,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -153,8 +153,8 @@ export const frax = new StableBond({
       reserveAddress: "0x853d955acef822db058eb8505911ed77f175b99e",
     },
     [NetworkId.TESTNET_RINKEBY]: {
-      bondAddress: "0xF651283543fB9D61A91f318b78385d187D300738",
-      reserveAddress: "0x2F7249cb599139e560f0c81c269Ab9b04799E453",
+      bondAddress: "0x0aE2d1e3b01008C0fa48C4A164919e2C33181859",
+      reserveAddress: "0x7417399479461Cf4CcD366997a32f79A1aCdfd03",
     },
     [NetworkId.Localhost]: {
       bondAddress: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
@@ -189,8 +189,8 @@ export const lusd = new StableBond({
   },
   LOLmessage: "",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -242,8 +242,8 @@ export const eth = new CustomBond({
   },
   LOLmessage: "Taking a Spa Day",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -304,8 +304,8 @@ export const cvx = new CustomBond({
   },
   LOLmessage: "",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -361,8 +361,8 @@ export const cvx_expired = new CustomBond({
   },
   LOLmessage: "",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -420,8 +420,8 @@ export const ohm_dai = new LPBond({
   },
   LOLmessage: "",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -469,8 +469,8 @@ export const ohm_daiOld = new LPBond({
   },
   LOLmessage: "",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -522,7 +522,7 @@ export const ohm_frax = new LPBond({
   },
   LOLmessage: "Out of Office",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
+    [NetworkId.MAINNET]: false,
     [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
@@ -570,8 +570,8 @@ export const ohm_fraxOld = new LPBond({
   },
   LOLmessage: "Out of Office",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -623,8 +623,8 @@ export const ohm_lusd = new LPBond({
   },
   LOLmessage: "",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -677,8 +677,8 @@ export const ohm_weth = new CustomBond({
   },
   LOLmessage: "Maternity Leave",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,
@@ -755,8 +755,8 @@ export const ohm_wethOld = new CustomBond({
   },
   LOLmessage: "Maternity Leave",
   isClaimable: {
-    [NetworkId.MAINNET]: true,
-    [NetworkId.TESTNET_RINKEBY]: true,
+    [NetworkId.MAINNET]: false,
+    [NetworkId.TESTNET_RINKEBY]: false,
     [NetworkId.ARBITRUM]: false,
     [NetworkId.ARBITRUM_TESTNET]: false,
     [NetworkId.AVALANCHE]: false,

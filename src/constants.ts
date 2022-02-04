@@ -378,9 +378,9 @@ export const VIEWS_FOR_NETWORK: { [key: number]: IViewsForNetwork } = {
   [NetworkId.TESTNET_RINKEBY]: {
     dashboard: true,
     stake: true,
-    wrap: false,
-    zap: false,
-    threeTogether: false,
+    wrap: true,
+    zap: true,
+    threeTogether: true,
     bonds: true,
     network: true,
     bondsV2: true,
